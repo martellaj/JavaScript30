@@ -27,17 +27,42 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const foo = inventors.filter(function(inventor) {
+      return inventor.year >= 1500 && inventor.year < 1600;
+    })
+    console.log(foo);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventory first and last names
+    const bar = inventors.map((inventor) => {
+      return `${inventor.first} ${inventor.last}`;
+    })
+    console.log(bar);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    inventors.sort((a, b) => {
+      return a.year - b.year;
+    });
+    console.log(inventors);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const years = inventors.reduce((total, current) => {
+      return total + (current.passed - current.year);
+    }, 0);
+    console.log(years);
 
     // 5. Sort the inventors by years lived
+    const baz = inventors.map(inventor => {
+      return {
+        name: `${inventor.first} ${inventor.last}`,
+        age: inventor.passed - inventor.year
+      };
+    }).sort((a, b) => {
+      return b.age - a.age;
+    });
+    console.log(baz);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -45,10 +70,28 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((a, b) => {
+      let aName = a.split(', ')[0].toLowerCase();
+      let bName = b.split(', ')[0].toLowerCase();
+      return aName > bName ? 1 : -1;
+    });
+    console.log(alpha);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const initialTotals = {
+      'car': 0,
+      'truck': 0,
+      'bike': 0,
+      'van': 0,
+      'walk': 0
+    };
+    const totals = data.reduce((_totals, current) => {
+      _totals[current]++;
+      return _totals;
+    }, initialTotals);
+    console.log(totals);
 
   </script>
 </body>
